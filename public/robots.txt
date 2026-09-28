@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /register/welcome
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://globalharvest.org/sitemap.xml

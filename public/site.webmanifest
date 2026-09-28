@@ -1,0 +1,9 @@
+{
+  "name": "Global Harvest",
+  "short_name": "Global Harvest",
+  "icons": [{ "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }],
+  "theme_color": "#06343D",
+  "background_color": "#FFF7EE",
+  "display": "standalone",
+  "start_url": "/"
+}

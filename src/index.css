@@ -1,0 +1,201 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Global Harvest design tokens
+   Palette adapted from the brand reference: sunset coral, deep ocean
+   teal, dark navy and warm cream. Every token is exposed as a Tailwind
+   utility (bg-coral-400, text-teal-900, font-display, ...).
+------------------------------------------------------------------- */
+@theme {
+  /* Coral / terracotta — brand warmth. 400 is the signature coral. */
+  --color-coral-50: #fff3ee;
+  --color-coral-100: #fde0d4;
+  --color-coral-200: #fac4ae;
+  --color-coral-300: #f6a386;
+  --color-coral-400: #f28a68;
+  --color-coral-500: #e8714c;
+  --color-coral-600: #c24f2d;
+  --color-coral-700: #9f3e22;
+  --color-coral-800: #7c301b;
+  --color-coral-900: #5a2314;
+
+  /* Deep ocean teal → dark navy. 600 is brand teal, 800 is brand navy. */
+  --color-teal-50: #eaf4f4;
+  --color-teal-100: #cce3e4;
+  --color-teal-200: #9cc7ca;
+  --color-teal-300: #64a3a9;
+  --color-teal-400: #2f7d86;
+  --color-teal-500: #0f606b;
+  --color-teal-600: #064b57;
+  --color-teal-700: #053f4a;
+  --color-teal-800: #06343d;
+  --color-teal-900: #04272e;
+  --color-teal-950: #021b20;
+
+  /* Cream / sand neutrals */
+  --color-cream-50: #fffcf8;
+  --color-cream-100: #fff7ee;
+  --color-cream-200: #f9ede0;
+  --color-cream-300: #f0dfcb;
+  --color-cream-400: #e2c9ae;
+  --color-sand-500: #8a7a6a;
+  --color-ink: #0f2a30;
+
+  --font-display: 'Outfit Variable', 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'DM Sans Variable', 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-script: 'Allura', 'Brush Script MT', cursive;
+
+  --tracking-eyebrow: 0.28em;
+  --tracking-wordmark: 0.38em;
+
+  --shadow-soft: 0 1px 2px rgb(6 52 61 / 0.04), 0 8px 24px -8px rgb(6 52 61 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(6 52 61 / 0.05), 0 24px 48px -16px rgb(6 52 61 / 0.22);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-drift: drift 18s ease-in-out infinite;
+  --animate-twinkle: twinkle 4s ease-in-out infinite;
+
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate3d(0, -10px, 0) rotate(-0.6deg);
+    }
+  }
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0.25;
+      transform: scale(0.8);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.25);
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream-100 text-ink font-sans antialiased;
+    font-feature-settings: 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-balance;
+    letter-spacing: -0.02em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    @apply bg-coral-200 text-teal-900;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-coral-500);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-coral-300);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12;
+  }
+  .eyebrow {
+    @apply font-display text-[0.72rem] font-semibold uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+  }
+  .display-xl {
+    @apply font-display font-bold leading-[0.95];
+    font-size: clamp(2.75rem, 7vw, 6.25rem);
+    letter-spacing: -0.035em;
+  }
+  .display-lg {
+    @apply font-display font-bold leading-[1];
+    font-size: clamp(2.25rem, 5vw, 4.25rem);
+    letter-spacing: -0.03em;
+  }
+  .display-md {
+    @apply font-display font-bold leading-[1.05];
+    font-size: clamp(1.85rem, 3.4vw, 3rem);
+    letter-spacing: -0.025em;
+  }
+  .lede {
+    @apply text-lg leading-relaxed sm:text-xl;
+  }
+  .prose-gh {
+    @apply max-w-3xl text-base leading-relaxed text-teal-900/85;
+  }
+  .prose-gh h2 {
+    @apply mt-12 mb-4 text-2xl font-semibold text-teal-800;
+  }
+  .prose-gh h3 {
+    @apply mt-8 mb-3 text-lg font-semibold text-teal-800;
+  }
+  .prose-gh p {
+    @apply mb-4;
+  }
+  .prose-gh ul {
+    @apply mb-4 list-disc space-y-2 pl-6;
+  }
+  .prose-gh a {
+    @apply font-medium text-coral-700 underline decoration-coral-300 underline-offset-4 hover:decoration-coral-600;
+  }
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@utility sr-only-focusable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  &:focus {
+    position: fixed;
+    width: auto;
+    height: auto;
+    clip: auto;
+    overflow: visible;
+  }
+}
