@@ -25,3 +25,8 @@ dist-ssr
 
 # Local env
 .env
+
+# Never commit local secrets
+env.txt
+.env.*
+!.env.example

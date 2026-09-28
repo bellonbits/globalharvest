@@ -17,7 +17,7 @@ function devApi(): Plugin {
         const name = (req.url ?? '/').split('?')[0].replace(/^\/+|\/+$/g, '')
         // /api/v1/* is served by the catch-all admin API function.
         const file = name.startsWith('v1/') || name === 'v1'
-          ? path.resolve(server.config.root, 'api', 'v1', '[...path].ts')
+          ? path.resolve(server.config.root, 'api', 'v1.ts')
           : path.resolve(server.config.root, 'api', `${name}.ts`)
         if (!name || name.startsWith('_') || name.includes('..') || !fs.existsSync(file)) return next()
         try {
