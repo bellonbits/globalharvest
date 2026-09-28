@@ -1,9 +1,9 @@
-import { ageRangeOptions, interestOptions, participationOptions } from '../src/content/formOptions'
-import { registrationSchema } from '../src/lib/schemas'
-import type { Registration } from '../src/types'
-import { getPool, SCHEMA } from './_lib/db'
-import { HttpError, oneOf, parse, postHandler } from './_lib/http'
-import { notify } from './_lib/router'
+import { ageRangeOptions, interestOptions, participationOptions } from '../src/content/formOptions.js'
+import { registrationSchema } from '../src/lib/schemas.js'
+import type { Registration } from '../src/types/index.js'
+import { getPool, SCHEMA } from './_lib/db.js'
+import { HttpError, oneOf, parse, postHandler } from './_lib/http.js'
+import { notify } from './_lib/router.js'
 
 const INTERESTS = interestOptions.map((o) => o.value)
 

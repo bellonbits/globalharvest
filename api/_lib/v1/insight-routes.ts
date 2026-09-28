@@ -1,10 +1,10 @@
-import { can, isRole, ROLE_PERMISSIONS, type Permission } from '../../../src/admin/rbac'
-import { getPool, SCHEMA } from '../db'
-import { HttpError } from '../http'
-import { audit, oneOfOr, pageParams, str, uuidOk, type AuthedCtx, type Router } from '../router'
-import { revokeAllSessions } from '../auth'
-import { createResetToken } from './auth-routes'
-import { mapRecord } from './record-routes'
+import { can, isRole, ROLE_PERMISSIONS, type Permission } from '../../../src/admin/rbac.js'
+import { getPool, SCHEMA } from '../db.js'
+import { HttpError } from '../http.js'
+import { audit, oneOfOr, pageParams, str, uuidOk, type AuthedCtx, type Router } from '../router.js'
+import { revokeAllSessions } from '../auth.js'
+import { createResetToken } from './auth-routes.js'
+import { mapRecord } from './record-routes.js'
 
 const T = (t: string) => `${SCHEMA}.${t}`
 const db = () => getPool()

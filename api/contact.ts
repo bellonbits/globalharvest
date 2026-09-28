@@ -1,9 +1,9 @@
-import { contactCategoryOptions } from '../src/content/formOptions'
-import { contactSchema } from '../src/lib/schemas'
-import type { ContactMessage } from '../src/types'
-import { getPool, SCHEMA } from './_lib/db'
-import { oneOf, parse, postHandler } from './_lib/http'
-import { notify } from './_lib/router'
+import { contactCategoryOptions } from '../src/content/formOptions.js'
+import { contactSchema } from '../src/lib/schemas.js'
+import type { ContactMessage } from '../src/types/index.js'
+import { getPool, SCHEMA } from './_lib/db.js'
+import { oneOf, parse, postHandler } from './_lib/http.js'
+import { notify } from './_lib/router.js'
 
 /** POST /api/contact — contact form. */
 export default postHandler(async (body) => {

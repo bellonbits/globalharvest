@@ -1,5 +1,5 @@
-import { getPool } from './_lib/db'
-import { send, type Req, type Res } from './_lib/http'
+import { getPool } from './_lib/db.js'
+import { send, type Req, type Res } from './_lib/http.js'
 
 /** GET /api/health — confirms the API can reach the database. */
 export default async function handler(_req: Req, res: Res) {

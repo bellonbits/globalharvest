@@ -1,4 +1,4 @@
-import { ROLE_PERMISSIONS } from '../../../src/admin/rbac'
+import { ROLE_PERMISSIONS } from '../../../src/admin/rbac.js'
 import {
   clearSessionCookie,
   createSession,
@@ -14,10 +14,10 @@ import {
   validatePasswordStrength,
   verifyPassword,
   type SessionUser,
-} from '../auth'
-import { getPool, SCHEMA } from '../db'
-import { HttpError } from '../http'
-import { audit, str, type Router } from '../router'
+} from '../auth.js'
+import { getPool, SCHEMA } from '../db.js'
+import { HttpError } from '../http.js'
+import { audit, str, type Router } from '../router.js'
 
 export const publicUser = (u: SessionUser) => ({
   id: u.id,

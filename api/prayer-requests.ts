@@ -1,8 +1,8 @@
-import { prayerRequestSchema } from '../src/lib/schemas'
-import type { PrayerRequest } from '../src/types'
-import { getPool, SCHEMA } from './_lib/db'
-import { oneOf, parse, postHandler } from './_lib/http'
-import { notify } from './_lib/router'
+import { prayerRequestSchema } from '../src/lib/schemas.js'
+import type { PrayerRequest } from '../src/types/index.js'
+import { getPool, SCHEMA } from './_lib/db.js'
+import { oneOf, parse, postHandler } from './_lib/http.js'
+import { notify } from './_lib/router.js'
 
 const CATEGORIES = ['personal', 'family', 'health', 'work', 'faith', 'community', 'mission', 'other'] as const
 

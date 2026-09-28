@@ -1,8 +1,8 @@
 import { createHash, randomBytes, scrypt as scryptCb, timingSafeEqual } from 'node:crypto'
 import { promisify } from 'node:util'
-import type { Role } from '../../src/admin/rbac'
-import { getPool, SCHEMA } from './db'
-import { HttpError, type Req, type Res } from './http'
+import type { Role } from '../../src/admin/rbac.js'
+import { getPool, SCHEMA } from './db.js'
+import { HttpError, type Req, type Res } from './http.js'
 
 const scrypt = promisify(scryptCb) as (pw: string, salt: Buffer, keylen: number, opts: object) => Promise<Buffer>
 

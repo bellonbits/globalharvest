@@ -1,4 +1,4 @@
-import type { AgeRange, ContactCategory, Country, InterestArea, Participation } from '../types'
+import type { AgeRange, ContactCategory, Country, InterestArea, Participation } from '../types/index.js'
 
 export interface Option<T extends string = string> {
   value: T

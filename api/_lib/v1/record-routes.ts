@@ -1,8 +1,8 @@
 import { createHash } from 'node:crypto'
-import { can, collectionPermission, isCollection, type Collection } from '../../../src/admin/rbac'
-import { getPool, SCHEMA } from '../db'
-import { HttpError } from '../http'
-import { audit, pageParams, str, uuidOk, type AuthedCtx, type Router } from '../router'
+import { can, collectionPermission, isCollection, type Collection } from '../../../src/admin/rbac.js'
+import { getPool, SCHEMA } from '../db.js'
+import { HttpError } from '../http.js'
+import { audit, pageParams, str, uuidOk, type AuthedCtx, type Router } from '../router.js'
 
 const T = (t: string) => `${SCHEMA}.${t}`
 const db = () => getPool()

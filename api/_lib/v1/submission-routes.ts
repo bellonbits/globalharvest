@@ -1,7 +1,7 @@
-import { can, type Permission } from '../../../src/admin/rbac'
-import { getPool, SCHEMA } from '../db'
-import { HttpError } from '../http'
-import { audit, oneOfOr, pageParams, sendCsv, sortClause, str, toCsv, uuidOk, type AuthedCtx, type Router } from '../router'
+import { can, type Permission } from '../../../src/admin/rbac.js'
+import { getPool, SCHEMA } from '../db.js'
+import { HttpError } from '../http.js'
+import { audit, oneOfOr, pageParams, sendCsv, sortClause, str, toCsv, uuidOk, type AuthedCtx, type Router } from '../router.js'
 
 const REG_STATUSES = ['new', 'contacted', 'active', 'inactive', 'archived'] as const
 const ATTENDANCE = ['registered', 'confirmed', 'attended', 'no-show', 'cancelled'] as const

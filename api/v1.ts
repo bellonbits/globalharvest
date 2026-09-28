@@ -1,9 +1,9 @@
-import type { Req, Res } from './_lib/http'
-import { Router } from './_lib/router'
-import { registerAuthRoutes } from './_lib/v1/auth-routes'
-import { registerInsightRoutes } from './_lib/v1/insight-routes'
-import { registerRecordRoutes } from './_lib/v1/record-routes'
-import { registerSubmissionRoutes } from './_lib/v1/submission-routes'
+import type { Req, Res } from './_lib/http.js'
+import { Router } from './_lib/router.js'
+import { registerAuthRoutes } from './_lib/v1/auth-routes.js'
+import { registerInsightRoutes } from './_lib/v1/insight-routes.js'
+import { registerRecordRoutes } from './_lib/v1/record-routes.js'
+import { registerSubmissionRoutes } from './_lib/v1/submission-routes.js'
 
 /**
  * /api/v1/* — admin API: one Vercel function with an internal router

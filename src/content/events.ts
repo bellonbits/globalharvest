@@ -1,4 +1,4 @@
-import type { Event, EventCategory } from '../types'
+import type { Event, EventCategory } from '../types/index.js'
 
 /**
  * PLACEHOLDER EVENTS.

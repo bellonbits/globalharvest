@@ -1,8 +1,8 @@
-import { events } from '../src/content/events'
-import { eventRegistrationSchema, type EventRegistrationInput } from '../src/lib/schemas'
-import { getPool, SCHEMA } from './_lib/db'
-import { HttpError, parse, postHandler } from './_lib/http'
-import { notify } from './_lib/router'
+import { events } from '../src/content/events.js'
+import { eventRegistrationSchema, type EventRegistrationInput } from '../src/lib/schemas.js'
+import { getPool, SCHEMA } from './_lib/db.js'
+import { HttpError, parse, postHandler } from './_lib/http.js'
+import { notify } from './_lib/router.js'
 
 /** POST /api/event-registrations — per-event registration form. */
 export default postHandler(async (body) => {

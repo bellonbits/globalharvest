@@ -1,7 +1,7 @@
-import { can, type Permission } from '../../src/admin/rbac'
-import { assertCsrf, clientInfo, getSessionUser, type SessionUser } from './auth'
-import { getPool, SCHEMA } from './db'
-import { HttpError, readJson, send, type Req, type Res } from './http'
+import { can, type Permission } from '../../src/admin/rbac.js'
+import { assertCsrf, clientInfo, getSessionUser, type SessionUser } from './auth.js'
+import { getPool, SCHEMA } from './db.js'
+import { HttpError, readJson, send, type Req, type Res } from './http.js'
 
 export interface Ctx {
   req: Req

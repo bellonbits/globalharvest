@@ -2,8 +2,8 @@
  * Validation schemas shared by the browser forms and the server API (api/),
  * so both sides always enforce identical rules.
  */
-import type { ContactMessage, EventRegistration, PrayerRequest, Registration } from '../types'
-import { v, type Schema } from './validation'
+import type { ContactMessage, EventRegistration, PrayerRequest, Registration } from '../types/index.js'
+import { v, type Schema } from './validation.js'
 
 export const registrationSchema: Schema<Registration> = {
   firstName: [v.required('Please enter your first name.'), v.maxLength(60)],
