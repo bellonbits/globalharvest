@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { ResourceCard } from '../components/cards/ResourceCard'
+import { GuideShelf } from '../components/sections/GuideShelf'
 import { PageHero } from '../components/sections/PageHero'
 import { CTAButton } from '../components/ui/Button'
 import { PlaceholderNotice } from '../components/ui/PlaceholderBadge'
@@ -62,6 +63,8 @@ export default function Resources() {
           </ul>
         </div>
       </section>
+
+      <GuideShelf eyebrow="Study guides" title="Guides for study and prayer." className="bg-cream-100 pt-0" />
 
       <section className="bg-cream-200/60 py-20" aria-labelledby="suggest-title">
         <div className="container-page flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">

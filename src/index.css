@@ -184,6 +184,19 @@
   }
 }
 
+@media print {
+  @page {
+    margin: 16mm 18mm;
+  }
+  .guide-page {
+    break-after: page;
+    break-inside: auto;
+  }
+  body {
+    background: #fff !important;
+  }
+}
+
 @utility sr-only-focusable {
   position: absolute;
   width: 1px;

@@ -221,3 +221,58 @@ export interface SubmissionResult {
   id?: string
   message?: string
 }
+
+/* ------------------------------------------------------------------ */
+/* Study guides — booklet-style documents for Bible studies, prayer   */
+/* points, devotionals and teaching notes.                            */
+/* ------------------------------------------------------------------ */
+
+export type GuideKind = 'bible-study' | 'prayer' | 'devotional' | 'teaching'
+
+export type GuideBlockType =
+  | 'eyebrow' // small-caps label above a title, e.g. "BACKGROUND"
+  | 'title' // large serif page title
+  | 'heading' // centred small-caps section heading
+  | 'paragraph' // justified body text (blank line = new paragraph)
+  | 'scripture' // indented quotation + reference
+  | 'exercise' // "Exercise One" style section opener
+  | 'label' // left small-caps stage label, e.g. "OBSERVATION: WHAT DOES IT SAY?"
+  | 'questions' // numbered questions with answer space
+  | 'points' // prayer points / bullet list
+  | 'note' // boxed callout
+  | 'divider'
+
+export interface GuideBlock {
+  id: string
+  type: GuideBlockType
+  text?: string
+  reference?: string
+  items?: string[]
+  /** Answer lines under each question (questions block). */
+  lines?: number
+  /** First number of a questions block (continues numbering across pages). */
+  start?: number
+}
+
+export interface GuidePage {
+  id: string
+  blocks: GuideBlock[]
+}
+
+export interface StudyGuide extends Placeholderable {
+  id?: string
+  slug: string
+  title: string
+  kind: GuideKind
+  /** Small caps line on the cover, e.g. "Global Harvest Bible Study". */
+  series?: string
+  subtitle?: string
+  summary?: string
+  author?: string
+  /** Image key from the manifest, or a full URL (Media library). */
+  coverImage?: string
+  bibleStudyId?: string
+  status?: 'draft' | 'published' | 'archived'
+  pages: GuidePage[]
+  updatedAt?: ISODateString
+}

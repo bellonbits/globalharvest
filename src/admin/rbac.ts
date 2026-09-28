@@ -39,6 +39,8 @@ export const PERMISSIONS = [
   'event_registrations:write',
   'bible_studies:read',
   'bible_studies:write',
+  'guides:read',
+  'guides:write',
   'prayer:read',
   'prayer:write',
   'groups:read',
@@ -68,17 +70,17 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
   SUPER_ADMIN: PERMISSIONS,
   ADMIN: [
     'dashboard:read',
-    ...rw('registrations', 'members', 'events', 'event_registrations', 'groups', 'content', 'resources', 'messages', 'communications', 'bible_studies', 'media'),
+    ...rw('registrations', 'members', 'events', 'event_registrations', 'groups', 'content', 'resources', 'messages', 'communications', 'bible_studies', 'media', 'guides'),
     'analytics:read',
     'audit:read',
     'settings:read',
   ],
-  EDITOR: ['dashboard:read', ...rw('content', 'resources', 'media')],
+  EDITOR: ['dashboard:read', ...rw('content', 'resources', 'media', 'guides')],
   EVENT_MANAGER: ['dashboard:read', ...rw('events', 'event_registrations'), 'media:read'],
-  BIBLE_STUDY_LEADER: ['dashboard:read', ...rw('bible_studies'), 'registrations:read', 'groups:read', 'resources:read'],
+  BIBLE_STUDY_LEADER: ['dashboard:read', ...rw('bible_studies', 'guides'), 'registrations:read', 'groups:read', 'resources:read', 'media:read'],
   // Prayer requests are visible ONLY to Super Admins and Prayer Coordinators.
-  PRAYER_COORDINATOR: ['dashboard:read', ...rw('prayer')],
-  CONTENT_MANAGER: ['dashboard:read', ...rw('content', 'resources', 'media')],
+  PRAYER_COORDINATOR: ['dashboard:read', ...rw('prayer', 'guides'), 'media:read'],
+  CONTENT_MANAGER: ['dashboard:read', ...rw('content', 'resources', 'media', 'guides')],
 }
 
 export function can(role: Role | null | undefined, permission: Permission): boolean {
@@ -92,6 +94,7 @@ export const isRole = (value: unknown): value is Role => ROLES.includes(value as
 export const COLLECTIONS = {
   events: 'events',
   bible_studies: 'bible_studies',
+  guides: 'guides',
   groups: 'groups',
   members: 'members',
   resources: 'resources',

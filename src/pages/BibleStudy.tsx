@@ -3,6 +3,7 @@ import { BibleStudyCard } from '../components/cards/BibleStudyCard'
 import { Icon } from '../components/brand/Icon'
 import { FinalCTA } from '../components/sections/FinalCTA'
 import { CmsSections } from '../components/sections/CmsSections'
+import { GuideShelf } from '../components/sections/GuideShelf'
 import { PageHero } from '../components/sections/PageHero'
 import { ScheduleList } from '../components/sections/ScheduleList'
 import { Accordion } from '../components/ui/Accordion'
@@ -131,6 +132,8 @@ export default function BibleStudy() {
           </m.ul>
         </div>
       </section>
+
+      <GuideShelf kind="bible-study" eyebrow="Study guides" title="Study at your own pace." description="Printable study guides with background, Scripture and questions for Observation, Interpretation and Application." className="bg-cream-100 pb-0" />
 
       <section className="bg-cream-100 py-24 sm:py-32" aria-labelledby="schedule-title">
         <div className="container-page grid gap-12 lg:grid-cols-12">

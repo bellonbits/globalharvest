@@ -49,7 +49,7 @@ export function Navbar() {
   return (
     <>
       <m.header
-        className="fixed inset-x-0 top-0 z-50"
+        className="fixed inset-x-0 top-0 z-50 print:hidden"
         initial={false}
         animate={{ y: hidden && !menuOpen ? '-120%' : '0%' }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}

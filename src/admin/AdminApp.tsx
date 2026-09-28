@@ -19,6 +19,8 @@ const BibleStudies = lazy(() => import('./pages/BibleStudies'))
 const BibleStudyFormPage = lazy(() => import('./pages/BibleStudies').then((m) => ({ default: m.BibleStudyFormPage })))
 const BibleStudyDetail = lazy(() => import('./pages/BibleStudies').then((m) => ({ default: m.BibleStudyDetail })))
 const Prayer = lazy(() => import('./pages/Prayer'))
+const Guides = lazy(() => import('./pages/Guides'))
+const GuideEditor = lazy(() => import('./pages/Guides').then((m) => ({ default: m.GuideEditor })))
 const Groups = lazy(() => import('./pages/Groups'))
 const GroupFormPage = lazy(() => import('./pages/Groups').then((m) => ({ default: m.GroupFormPage })))
 const GroupDetail = lazy(() => import('./pages/Groups').then((m) => ({ default: m.GroupDetail })))
@@ -85,6 +87,10 @@ export default function AdminApp() {
           <Route path="bible-studies/:id" element={<P perm="bible_studies:read"><BibleStudyDetail /></P>} />
           <Route path="bible-studies/:id/edit" element={<P perm="bible_studies:write"><BibleStudyFormPage /></P>} />
           <Route path="prayer" element={<P perm="prayer:read"><Prayer /></P>} />
+          <Route path="guides" element={<P perm="guides:read"><Guides /></P>} />
+          <Route path="guides/new" element={<P perm="guides:write"><GuideEditor /></P>} />
+          <Route path="guides/:id/edit" element={<P perm="guides:read"><GuideEditor /></P>} />
+          <Route path="guides/:id" element={<P perm="guides:read"><GuideEditor /></P>} />
           <Route path="groups" element={<P perm="groups:read"><Groups /></P>} />
           <Route path="groups/new" element={<P perm="groups:write"><GroupFormPage /></P>} />
           <Route path="groups/:id" element={<P perm="groups:read"><GroupDetail /></P>} />

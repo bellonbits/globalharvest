@@ -22,6 +22,7 @@ const MediaKit = lazy(() => import('./pages/MediaKit'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const Terms = lazy(() => import('./pages/Terms'))
 const NotFound = lazy(() => import('./pages/NotFound'))
+const GuideReader = lazy(() => import('./pages/GuideReader'))
 // The admin portal is a separate bundle — public visitors never download it.
 const AdminApp = lazy(() => import('./admin/AdminApp'))
 
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
       { path: 'events', element: <Events /> },
       { path: 'events/:slug', element: <EventDetail /> },
       { path: 'resources', element: <Resources /> },
+      { path: 'guides/:slug', element: <GuideReader /> },
       { path: 'join', element: <Join /> },
       { path: 'register', element: <Register /> },
       { path: 'register/welcome', element: <RegisterWelcome /> },

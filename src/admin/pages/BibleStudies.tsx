@@ -6,7 +6,7 @@ import { DataTable, type Column } from '../components/DataTable'
 import { RecordForm, type FormSectionConfig } from '../components/RecordForm'
 import { Button, Card, ConfirmDialog, DemoTag, DetailList, ErrorState, FilterSelect, IconButton, LoadingBlock, PageHeader, SearchInput, StatusBadge, TextAreaField, TextField } from '../components/ui'
 import { formatDay, labelize, useDebounced, useListState, useResource } from '../lib/hooks'
-import { bibleStudyService, memberService } from '../services'
+import { bibleStudyService, guideService, memberService } from '../services'
 import type { BibleStudyRecord, BibleStudySession } from '../types'
 
 const STATUSES = ['draft', 'open', 'active', 'completed', 'archived'] as const
@@ -184,8 +184,10 @@ export function BibleStudyDetail() {
   const { data: s, loading, error, reload } = useResource(() => bibleStudyService.get(id), [id])
   const participants = useResource(() => (can('members:read') ? memberService.list({ pageSize: 100, q: id }) : Promise.resolve(null)), [id])
   const [confirm, setConfirm] = useState(false)
+  const guides = useResource(() => (can('guides:read') ? guideService.list({ pageSize: 50, q: id }) : Promise.resolve(null)), [id])
   if (error) return <Card><ErrorState error={error} onRetry={reload} /></Card>
   if (loading || !s) return <Card><LoadingBlock /></Card>
+  const linkedGuides = (guides.data?.items ?? []).filter((g) => g.bibleStudyId === s.id)
   const enrolled = (participants.data?.items ?? []).filter((m) => m.bibleStudyIds?.includes(s.id))
   return (
     <>
@@ -236,6 +238,14 @@ export function BibleStudyDetail() {
             )}
           </Card>
         </div>
+        <div className="space-y-6">
+        <Card title="Study guides" actions={can('guides:write') ? <Button size="sm" icon="plus" to="/admin/guides/new?kind=bible-study">New guide</Button> : null}>
+          {linkedGuides.length ? (
+            <ul className="space-y-2 text-sm">{linkedGuides.map((g) => <li key={g.id} className="flex items-center justify-between gap-2"><Link className="text-teal-800 hover:underline" to={`/admin/guides/${g.id}/edit`}>{g.title}</Link><StatusBadge status={g.status ?? 'draft'} /></li>)}</ul>
+          ) : (
+            <p className="text-sm text-teal-900/55">No study guide linked yet. Create one and choose this study under “Related Bible study”.</p>
+          )}
+        </Card>
         <Card title={`Participants (${enrolled.length})`}>
           {enrolled.length ? (
             <ul className="space-y-2 text-sm">{enrolled.map((m) => <li key={m.id}><Link className="text-teal-800 hover:underline" to={`/admin/members/${m.id}`}>{m.firstName} {m.lastName}</Link></li>)}</ul>
@@ -243,6 +253,7 @@ export function BibleStudyDetail() {
             <p className="text-sm text-teal-900/55">No members enrolled yet. Enrol members from their profile page.</p>
           )}
         </Card>
+        </div>
       </div>
       <ConfirmDialog open={confirm} onClose={() => setConfirm(false)} danger title="Delete Bible study?" body="This deletes the study and all its sessions." confirmLabel="Delete" onConfirm={async () => { await bibleStudyService.remove(s.id); notify({ tone: 'success', title: 'Study deleted' }); navigate('/admin/bible-studies') }} />
     </>

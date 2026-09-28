@@ -13,6 +13,7 @@ const MAX_RECORD_BYTES = 200 * 1024
 const RULES: Record<Collection, { statuses: string[]; required: string[]; slugFrom?: string }> = {
   events: { statuses: ['draft', 'published', 'registration-open', 'registration-closed', 'completed', 'cancelled'], required: ['title', 'date'], slugFrom: 'title' },
   bible_studies: { statuses: ['draft', 'open', 'active', 'completed', 'archived'], required: ['title'], slugFrom: 'title' },
+  guides: { statuses: ['draft', 'published', 'archived'], required: ['title', 'kind'], slugFrom: 'title' },
   groups: { statuses: ['active', 'inactive', 'full'], required: ['name'], slugFrom: 'name' },
   members: { statuses: ['active', 'inactive', 'pending'], required: ['firstName', 'lastName', 'email'] },
   resources: { statuses: ['draft', 'published', 'archived'], required: ['title', 'type'], slugFrom: 'title' },
@@ -44,7 +45,9 @@ function sanitize(value: unknown, key = '', depth = 0): unknown {
   if (depth > 6) return undefined
   if (typeof value === 'string') {
     const s = value.trim().slice(0, 20000)
-    if (URL_KEY.test(key) && s && !/^(https?:\/\/|\/(?!\/))/i.test(s)) throw new HttpError(422, `“${key}” must be a web address starting with https:// or /.`, { [key]: 'Invalid URL' })
+    // Links/images must be http(s) URLs or site paths; image fields may also name a built-in image (e.g. "bible-golden-light").
+    const builtInImage = /image$/i.test(key) && /^[a-z0-9-]{1,60}$/.test(s)
+    if (URL_KEY.test(key) && s && !builtInImage && !/^(https?:\/\/|\/(?!\/))/i.test(s)) throw new HttpError(422, `“${key}” must be a web address starting with https:// or /.`, { [key]: 'Invalid URL' })
     return s
   }
   if (typeof value === 'number') return Number.isFinite(value) ? value : undefined
@@ -53,7 +56,9 @@ function sanitize(value: unknown, key = '', depth = 0): unknown {
   if (typeof value === 'object' && value) {
     const out: Record<string, unknown> = {}
     for (const [k, v] of Object.entries(value)) {
-      if (k === '__proto__' || k === 'constructor' || k === 'prototype' || k === 'id' || k === 'createdAt' || k === 'updatedAt' || k === 'isDemo') continue
+      if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue
+      // System fields are only stripped at the top level; nested items (pages, blocks, sessions) keep their ids.
+      if (depth === 0 && (k === 'id' || k === 'createdAt' || k === 'updatedAt' || k === 'isDemo')) continue
       const clean = sanitize(v, k, depth + 1)
       if (clean !== undefined) out[k.slice(0, 60)] = clean
     }
@@ -264,6 +269,31 @@ export function registerRecordRoutes(r: Router) {
     if (!rows[0]) return { page: null }
     const page = mapRecord(rows[0]) as Record<string, any>
     return { page: { slug: page.slug, title: page.title, blocks: (page.blocks ?? []).filter((b: { visible?: boolean }) => b.visible !== false), updatedAt: page.updatedAt } }
+  })
+
+  /** GET /public/guides — published study guides (summaries only; pages load per guide). */
+  r.public('GET', '/public/guides', async ({ res }) => {
+    const { rows } = await db().query(
+      `SELECT id, is_demo, updated_at, data->>'slug' AS slug, data->>'title' AS title, data->>'kind' AS kind, data->>'series' AS series,
+              data->>'subtitle' AS subtitle, data->>'summary' AS summary, data->>'coverImage' AS "coverImage"
+         FROM ${T('records')} WHERE collection = 'guides' AND status = 'published' ORDER BY updated_at DESC LIMIT 200`,
+    )
+    res.setHeader('Cache-Control', 'public, max-age=60, stale-while-revalidate=300')
+    return {
+      guides: rows.map((g) => ({
+        slug: g.slug, title: g.title, kind: g.kind, series: g.series ?? undefined, subtitle: g.subtitle ?? undefined, summary: g.summary ?? undefined,
+        coverImage: g.coverImage ?? undefined, isPlaceholder: g.is_demo, pages: [], updatedAt: g.updated_at,
+      })),
+    }
+  })
+
+  /** GET /public/guides/:slug — one published guide with its pages. */
+  r.public('GET', '/public/guides/:slug', async ({ params, res }) => {
+    const { rows } = await db().query(`SELECT * FROM ${T('records')} WHERE collection = 'guides' AND status = 'published' AND data->>'slug' = $1 LIMIT 1`, [params.slug.slice(0, 120)])
+    res.setHeader('Cache-Control', 'public, max-age=60, stale-while-revalidate=300')
+    if (!rows[0]) return { guide: null }
+    const g = mapRecord(rows[0]) as Record<string, any>
+    return { guide: { ...g, isPlaceholder: g.isDemo === true, id: undefined, createdAt: undefined } }
   })
 
   /** GET /public/events — events published from the admin portal. */

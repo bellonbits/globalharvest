@@ -2,6 +2,7 @@ import { m } from 'framer-motion'
 import { Icon } from '../components/brand/Icon'
 import { PrayerRequestForm } from '../components/forms/PrayerRequestForm'
 import { CmsSections } from '../components/sections/CmsSections'
+import { GuideShelf } from '../components/sections/GuideShelf'
 import { PageHero } from '../components/sections/PageHero'
 import { ScheduleList } from '../components/sections/ScheduleList'
 import { ScriptureBand } from '../components/sections/ScriptureBand'
@@ -121,6 +122,8 @@ export default function Prayer() {
           </m.ul>
         </div>
       </section>
+
+      <GuideShelf kind="prayer" eyebrow="Prayer guides" title="Prayer points to pray through." description="Guided prayer with Scripture, prayer points and space to write what God is saying." />
 
       <section className="bg-cream-200/60 py-24 sm:py-32" aria-labelledby="prayer-resources-title">
         <div className="container-page grid gap-14 lg:grid-cols-12">

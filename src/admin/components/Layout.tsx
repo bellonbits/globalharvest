@@ -34,7 +34,8 @@ export const NAV: { section?: string; items: NavItem[] }[] = [
     items: [
       { to: '/admin/events', label: 'Events', icon: 'calendar', permission: 'events:read' },
       { to: '/admin/bible-studies', label: 'Bible Studies', icon: 'book', permission: 'bible_studies:read' },
-      { to: '/admin/resources', label: 'Resources', icon: 'bookmark', permission: 'resources:read' },
+      { to: '/admin/guides', label: 'Study Guides', icon: 'bookmark', permission: 'guides:read' },
+      { to: '/admin/resources', label: 'Resources', icon: 'file', permission: 'resources:read' },
     ],
   },
   {

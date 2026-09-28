@@ -23,7 +23,7 @@ function ScrollManager() {
 function ScrollProgress() {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 30, restDelta: 0.001 })
-  return <m.div aria-hidden="true" className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-coral-400" style={{ scaleX }} />
+  return <m.div aria-hidden="true" className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-coral-400 print:hidden" style={{ scaleX }} />
 }
 
 function PageFallback() {

@@ -36,6 +36,7 @@ import type {
   RegistrationStatus,
   ResourceRecord,
 } from '../types'
+import type { StudyGuide } from '../../types'
 
 type Q = ListQuery & Record<string, string | number | boolean | undefined>
 
@@ -102,6 +103,9 @@ export const eventService = {
 
 /* ---------- Bible studies, groups, resources, content, media ---------- */
 export const bibleStudyService = recordsService<BibleStudyRecord>('bible_studies')
+
+/** Booklet-style study guides (Bible studies, prayer guides, devotionals). */
+export const guideService = recordsService<StudyGuide & { id: string; isDemo?: boolean; createdAt: string; updatedAt: string }>('guides')
 
 export const groupService = {
   ...recordsService<GroupRecord>('groups'),

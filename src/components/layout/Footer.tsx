@@ -9,7 +9,7 @@ import { SocialLinks } from './SocialLinks'
 export function Footer() {
   const year = new Date().getFullYear()
   return (
-    <footer className="on-dark relative overflow-hidden bg-teal-900 text-cream-100">
+    <footer className="on-dark relative overflow-hidden bg-teal-900 text-cream-100 print:hidden">
       <GlobalMap className="pointer-events-none absolute -top-10 right-[-20%] w-[90%] max-w-none text-cream-100/[0.07] lg:right-[-8%] lg:w-[70%]" lights={6} decorative />
       <div className="container-page relative pt-20 pb-10 lg:pt-24">
         <div className="grid gap-14 lg:grid-cols-12">
